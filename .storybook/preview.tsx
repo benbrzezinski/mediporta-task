@@ -1,5 +1,6 @@
+import React from "react";
 import type { Preview } from "@storybook/react";
-import { CssBaseline } from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 
 const preview: Preview = {
   parameters: {
@@ -10,12 +11,14 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    Story => (
+      <Container>
+        <CssBaseline />
+        <Story />
+      </Container>
+    ),
+  ],
 };
-
-export const decorators = [
-  {
-    GlobalStyles: CssBaseline,
-  },
-];
 
 export default preview;

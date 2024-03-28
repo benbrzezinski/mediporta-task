@@ -13,6 +13,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:react-hooks/recommended",
     "plugin:storybook/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
