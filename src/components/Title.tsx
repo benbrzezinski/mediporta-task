@@ -1,9 +1,20 @@
 interface TitleTypes {
-  text: string;
+  text?: string;
+  fontSize?: number;
 }
 
-const Title = ({ text }: TitleTypes) => {
-  return <h2 style={{ marginTop: 0, marginBottom: 20 }}>{text}</h2>;
+const Title = ({ text = "Stack Overflow Tags", fontSize = 30 }: TitleTypes) => {
+  return (
+    <h1
+      style={{
+        fontSize,
+        marginTop: 0,
+        marginBottom: 20,
+      }}
+    >
+      {text}
+    </h1>
+  );
 };
 
 export default Title;

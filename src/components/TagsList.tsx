@@ -9,15 +9,16 @@ import {
 } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { TagsListTypes } from "../types";
 import useTagsStore from "../store";
 import getTags from "../api";
 import Pagination from "./Pagination";
 import Notification from "./Notification";
 import Loader from "./Loader";
 
-const TagsList = () => {
+const TagsList = ({ variant = "paper" }: TagsListTypes) => {
   const tableContainerRef = useRef<HTMLDivElement | null>(null);
-  const { tags, page, perPage, order, sortBy, setTags, setHasMore } =
+  const { tags, page, perPage, order, sortBy, setTags, setHasMore, setPage } =
     useTagsStore();
 
   const { data, isPending, isError, error } = useQuery({
@@ -33,6 +34,10 @@ const TagsList = () => {
   }, [data, setTags, setHasMore]);
 
   useEffect(() => {
+    setPage(1);
+  }, [setPage, perPage, order, sortBy]);
+
+  useEffect(() => {
     if (tableContainerRef.current) tableContainerRef.current.scrollTo(0, 0);
   }, [page]);
 
@@ -41,22 +46,26 @@ const TagsList = () => {
   }
 
   if (isError) {
-    return <Notification variant="error" text={String(error)} />;
+    return <Notification type="error" text={String(error)} />;
   }
 
   return tags.length > 0 ? (
     <>
       <TableContainer
-        style={{ maxHeight: "50dvh", overflowY: "auto" }}
-        component={Paper}
+        style={{ maxHeight: "80dvh", overflowY: "auto" }}
+        component={variant === "paper" ? Paper : "div"}
         ref={tableContainerRef}
       >
         <Table style={{ tableLayout: "fixed" }}>
           <TableHead>
-            <TableRow>
-              <TableCell>Position</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Count</TableCell>
+            <TableRow
+              sx={{
+                color: theme => theme.palette.primary.light,
+              }}
+            >
+              <TableCell sx={{ color: "inherit" }}>Position</TableCell>
+              <TableCell sx={{ color: "inherit" }}>Name</TableCell>
+              <TableCell sx={{ color: "inherit" }}>Count</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -70,10 +79,10 @@ const TagsList = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination />
+      <Pagination variant={variant} />
     </>
   ) : (
-    <Notification variant="info" text="No tags were found" />
+    <Notification type="info" text="No tags found" />
   );
 };
 

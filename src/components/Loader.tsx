@@ -1,9 +1,13 @@
 import { Box, CircularProgress } from "@mui/material";
 
-const Loader = () => {
+interface LoaderTypes {
+  size?: number;
+}
+
+const Loader = ({ size = 40 }: LoaderTypes) => {
   return (
     <Box display="flex" justifyContent="center">
-      <CircularProgress />
+      <CircularProgress size={size} />
     </Box>
   );
 };

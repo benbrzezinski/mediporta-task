@@ -1,26 +1,40 @@
 import { Box, ButtonGroup, Button } from "@mui/material";
 import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
+import { TagsListTypes } from "../types";
 import useTagsStore from "../store";
 
-const Pagination = () => {
+const Pagination = ({ variant = "paper" }: TagsListTypes) => {
   const { page, hasMore, setPage } = useTagsStore();
+
+  const scrollUp = () => {
+    window.scrollBy({ top: -100, behavior: "smooth" });
+  };
 
   return (
     <Box display="flex" justifyContent="center">
-      <ButtonGroup variant="contained" aria-label="pagination">
+      <ButtonGroup
+        variant={variant === "paper" ? "contained" : "text"}
+        aria-label="pagination"
+      >
         <Button
           onClick={() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            scrollUp();
             setPage(page - 1);
           }}
           disabled={page === 1}
         >
           <ArrowBackIosNew fontSize="inherit" />
         </Button>
-        <Button>{page}</Button>
         <Button
           onClick={() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            scrollUp();
+          }}
+        >
+          {page}
+        </Button>
+        <Button
+          onClick={() => {
+            scrollUp();
             setPage(page + 1);
           }}
           disabled={!hasMore}

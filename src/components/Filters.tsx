@@ -9,15 +9,19 @@ import {
 import { SortBy, Order } from "../enums";
 import useTagsStore from "../store";
 
-const Filters = () => {
+interface FiltersTypes {
+  width?: number;
+}
+
+const Filters = ({ width = 288 }: FiltersTypes) => {
   const { perPage, sortBy, order, setPerPage, setSortBy, setOrder } =
     useTagsStore();
 
   return (
-    <Box display="flex" justifyContent="flex-start" flexWrap="wrap" gap="20px">
+    <Box display="flex" flexWrap="wrap" gap="20px">
       <FormControl>
         <TextField
-          style={{ width: 150 }}
+          style={{ width }}
           id="perPage"
           name="perPage"
           type="number"
@@ -48,7 +52,7 @@ const Filters = () => {
       <FormControl>
         <InputLabel id="sortByLabel">Sort by</InputLabel>
         <Select
-          style={{ width: 150 }}
+          style={{ width }}
           labelId="sortByLabel"
           name="sortBy"
           label="Sort by"
@@ -63,7 +67,7 @@ const Filters = () => {
       <FormControl>
         <InputLabel id="orderLabel">Order</InputLabel>
         <Select
-          style={{ width: 150 }}
+          style={{ width }}
           labelId="orderLabel"
           name="order"
           label="Order"

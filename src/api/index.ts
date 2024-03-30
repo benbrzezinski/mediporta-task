@@ -32,7 +32,7 @@ const getTags = async (
     if (axios.isAxiosError(err)) {
       throw new Error(err.message);
     } else {
-      throw new Error("Unexpected error occurred, please try again later");
+      throw new Error("An unexpected error occurred, please try again later");
     }
   }
 };

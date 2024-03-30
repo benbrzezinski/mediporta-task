@@ -1,14 +1,19 @@
 import { Box, Alert, AlertColor } from "@mui/material";
 
 interface NotificationTypes {
-  variant: AlertColor;
-  text: string;
+  type?: AlertColor;
+  text?: string;
 }
 
-const Notification = ({ variant, text }: NotificationTypes) => {
+const Notification = ({
+  type = "success",
+  text = "Success",
+}: NotificationTypes) => {
   return (
     <Box display="flex" justifyContent="center">
-      <Alert severity={variant}>{text}</Alert>
+      <Alert severity={type} variant="outlined">
+        {text}
+      </Alert>
     </Box>
   );
 };

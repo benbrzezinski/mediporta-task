@@ -1,21 +1,22 @@
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { Container, Box } from "@mui/material";
-import Title from "./components/Title";
-import Filters from "./components/Filters";
-import TagsList from "./components/TagsList";
+import { ThemeProvider } from "@mui/material/styles";
+import { Container } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import useCustomTheme from "./theme";
+import Home from "./pages/Home";
 
 const App = () => {
   const queryClient = new QueryClient();
+  const theme = useCustomTheme();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Container>
-        <Title text="Stack Overflow Tags" />
-        <Box display="flex" flexDirection="column" gap="40px">
-          <Filters />
-          <TagsList />
-        </Box>
-      </Container>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container>
+          <Home />
+        </Container>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };
