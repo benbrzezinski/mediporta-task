@@ -1,13 +1,12 @@
 interface TitleTypes {
   text?: string;
-  fontSize?: number;
 }
 
-const Title = ({ text = "Stack Overflow Tags", fontSize = 30 }: TitleTypes) => {
+const Title = ({ text = "Stack Overflow Tags" }: TitleTypes) => {
   return (
     <h1
       style={{
-        fontSize,
+        fontSize: "clamp(1.8125rem, 1.6875rem + 0.625vw, 2rem)",
         marginTop: 0,
         marginBottom: 20,
       }}

@@ -13,6 +13,5 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {
   args: {
     text: "Stack Overflow Tags",
-    fontSize: 30,
   },
 };

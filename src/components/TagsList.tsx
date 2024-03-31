@@ -9,14 +9,13 @@ import {
 } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { TagsListTypes } from "../types";
 import useTagsStore from "../store";
 import getTags from "../api";
-import Pagination from "./Pagination";
+import TagsPagination from "./TagsPagination";
 import Notification from "./Notification";
 import Loader from "./Loader";
 
-const TagsList = ({ variant = "paper" }: TagsListTypes) => {
+const TagsList = () => {
   const tableContainerRef = useRef<HTMLDivElement | null>(null);
   const { tags, page, perPage, order, sortBy, setTags, setHasMore, setPage } =
     useTagsStore();
@@ -53,7 +52,7 @@ const TagsList = ({ variant = "paper" }: TagsListTypes) => {
     <>
       <TableContainer
         style={{ maxHeight: "80dvh", overflowY: "auto" }}
-        component={variant === "paper" ? Paper : "div"}
+        component={Paper}
         ref={tableContainerRef}
       >
         <Table style={{ tableLayout: "fixed" }}>
@@ -79,7 +78,7 @@ const TagsList = ({ variant = "paper" }: TagsListTypes) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination variant={variant} />
+      <TagsPagination />
     </>
   ) : (
     <Notification type="info" text="No tags found" />

@@ -6,6 +6,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useState, useEffect } from "react";
 import { SortBy, Order } from "../enums";
 import useTagsStore from "../store";
 
@@ -14,8 +15,18 @@ interface FiltersTypes {
 }
 
 const Filters = ({ width = 288 }: FiltersTypes) => {
+  const DELAYED_VALUE = 1000;
   const { perPage, sortBy, order, setPerPage, setSortBy, setOrder } =
     useTagsStore();
+  const [perPageInput, setPerPageInput] = useState(perPage);
+
+  useEffect(() => {
+    const delayedSetPerPageID = setTimeout(() => {
+      setPerPage(perPageInput);
+    }, DELAYED_VALUE);
+
+    return () => clearTimeout(delayedSetPerPageID);
+  }, [setPerPage, perPageInput]);
 
   return (
     <Box display="flex" flexWrap="wrap" gap="20px">
@@ -28,14 +39,14 @@ const Filters = ({ width = 288 }: FiltersTypes) => {
           label="Tags per page"
           inputMode="numeric"
           inputProps={{ min: 1, max: 100 }}
-          value={perPage}
+          value={perPageInput}
           onChange={e => {
             const valueNumber = parseInt(e.target.value);
             const min = 1;
             const max = 100;
 
             if (isNaN(valueNumber)) {
-              setPerPage("");
+              setPerPageInput("");
               return;
             }
 
@@ -44,7 +55,7 @@ const Filters = ({ width = 288 }: FiltersTypes) => {
               valueNumber >= min &&
               valueNumber <= max
             ) {
-              setPerPage(String(valueNumber));
+              setPerPageInput(String(valueNumber));
             }
           }}
         />

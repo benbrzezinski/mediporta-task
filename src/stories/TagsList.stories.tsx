@@ -6,12 +6,6 @@ import TagsList from "../components/TagsList";
 const meta = {
   component: TagsList,
   title: "TagsList",
-  argTypes: {
-    variant: {
-      control: "select",
-      options: ["paper", "plain"],
-    },
-  },
   decorators: [
     Story => {
       const queryClient = new QueryClient();
@@ -31,14 +25,4 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Paper: Story = {
-  args: {
-    variant: "paper",
-  },
-};
-
-export const Plain: Story = {
-  args: {
-    variant: "plain",
-  },
-};
+export const Base: Story = {};
